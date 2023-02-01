@@ -44,7 +44,7 @@ int subhook_unprotect(void *address, size_t size) {
   // Fix up the length - since we rounded the start address off, if a jump is right at the
   // end of a page we could need to unprotect both.
   void *end = address + size;
-  size_t new_size = end - aligned_address;
+  size_t new_size = end - (long)aligned_address;
 
   int error = mprotect(aligned_address, new_size, SUBHOOK_CODE_PROTECT_FLAGS);
 #ifdef SUBHOOK_APPLE
